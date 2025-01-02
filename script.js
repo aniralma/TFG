@@ -10,7 +10,7 @@ const paisesUE = {
     "dinamarca": "DK",
     "eslovaquia": "SK",
     "eslovenia": "SI",
-    "espana": "ES",
+    "españa": "ES",
     "estonia": "EE",
     "finlandia": "FI",
     "francia": "FR",
@@ -48,8 +48,7 @@ const paisesUE = {
     "turquia": "TR",
     "rusia": "RU",
     "bielorrusia": "BY",
-    "ukrania": "UA",
-    "suiza": "CH",
+    "ucrania": "UA",
     "albania": "AL",
     "ciudad del vaticano": "VA",
     "reino unido": "GB"
@@ -105,7 +104,9 @@ const ciudadesPorPais = {
     "Turquia": ["Estambul", "Ankara", "Esmirna", "Capadocia", "Antalya"],
     "Ucrania": ["Kiev", "Odesa", "Leopolis", "Jarkov", "Dnipro"],
     "Ciudad del Vaticano": ["Ciudad del Vaticano"],
-    "Reino Unido": ["Londres", "Edimburgo", "Birmingham", "Manchester", "Liverpool"]
+    "Reino Unido": ["Londres", "Edimburgo", "Birmingham", "Manchester", "Liverpool"],
+    "Suiza": ["Zürich", "Ginebra", "Basel", "Lucerna", "Lausana"],
+    "Macedonia del Norte": ["Skopje", "Ohrid", "Bitola"]
 };
 
 const diccionarioCiudades = {
@@ -310,10 +311,16 @@ const diccionarioCiudades = {
     "Lausana": "Lausanne",
     "St. Moritz": "St. Moritz",
     "Wien": "Vienna",
-    "Zug": "Zug"
+    "Zug": "Zug",
+    "Zürich": "Zurich",
+    "Ginebra": "Geneva",
+    "Basel": "Basel",
+    "Lucerna": "Lucerne",
+    "Lausana": "Lausanne",
+    "Skopje": "Skopje",
+    "Ohrid": "Ohrid",
+    "Bitola": "Bitola"
 };
-
-
 
 const requisitosMedicos = [
     {
@@ -445,7 +452,7 @@ const requisitosMedicos = [
         "last_updated": "2024-12-28"
     },
     {
-        "country": "Espana",
+        "country": "España",
         "visa_requirement": "Los ciudadanos de la UE, Espacio Schengen y algunos países pueden ingresar sin visado. Para otros, se requiere visado Schengen.",
         "vaccine_requirement": "No se requieren vacunas obligatorias. Se recomiendan las de tetanos-difteria, hepatitis A y B si se viaja a ciertas regiones.",
         "health_advice": "Se recomienda llevar tarjeta sanitaria europea (TSE) y seguro de viaje adicional.",
@@ -621,7 +628,7 @@ const requisitosMedicos = [
         "last_updated": "2024-12-28"
     },
     {
-        "country": "Rumanía",
+        "country": "Rumania",
         "visa_requirement": "Los ciudadanos de la UE, Espacio Schengen y algunos países pueden ingresar sin visado. Para otros, se requiere visado Schengen.",
         "vaccine_requirement": "No se requieren vacunas obligatorias.",
         "health_advice": "Se recomienda llevar tarjeta sanitaria europea (TSE).",
@@ -691,7 +698,39 @@ const requisitosMedicos = [
         "health_advice": "No se requieren precauciones especiales.",
         "foreign_ministry_url": "https://www.vatican.va",
         "last_updated": "2024-12-28"
-    }
+    },
+    {
+        "country": "Reino Unido",
+        "visa_requirement": "Visado requerido para algunos países. Los ciudadanos de la UE necesitan visado para estancias prolongadas.",
+        "vaccine_requirement": "No se requieren vacunas obligatorias.",
+        "health_advice": "Seguro de viaje recomendado.",
+        "foreign_ministry_url": "https://www.gov.uk",
+        "last_updated": "2024-12-28"
+      },
+      {
+        "country": "Países Bajos",
+        "visa_requirement": "Los ciudadanos de la UE pueden ingresar sin visado. Para otros, se requiere visado.",
+        "vaccine_requirement": "No se requieren vacunas obligatorias.",
+        "health_advice": "Se recomienda llevar seguro de viaje.",
+        "foreign_ministry_url": "https://www.government.nl/ministries/ministry-of-foreign-affairs",
+        "last_updated": "2024-12-28"
+    },
+    {
+        "country": "Republica Checa",
+        "visa_requirement": "Los ciudadanos de la UE pueden ingresar sin visado. Para otros, se requiere visado.",
+        "vaccine_requirement": "No se requieren vacunas obligatorias.",
+        "health_advice": "Se recomienda llevar seguro de viaje.",
+        "foreign_ministry_url": "https://www.mzv.cz/jnp/es/index.html",
+        "last_updated": "2024-12-28"
+    },
+    {
+        "country": "Macedonia del Norte",
+        "visa_requirement": "Los ciudadanos de la UE pueden ingresar sin visado por un máximo de 90 días. Otros países pueden requerir visado.",
+        "vaccine_requirement": "No se requieren vacunas obligatorias.",
+        "health_advice": "Se recomienda tener un seguro de viaje adecuado.",
+        "foreign_ministry_url": "https://www.mfa.gov.mk",
+        "last_updated": "2024-12-28"
+    },
 ];
 
 
@@ -737,7 +776,7 @@ async function buscarRequisitos() {
     const options = {
         method: 'POST',
         headers: {
-            'x-rapidapi-key': '1409d00da2mshe42a0c552294395p135c55jsna2256c092484',
+            'x-rapidapi-key': '3206dfcb3cmshd6d714776f934eap111428jsn1641db5b4639',
             'x-rapidapi-host': 'visa-requirement.p.rapidapi.com',
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -761,16 +800,20 @@ async function buscarRequisitos() {
         stayElement.textContent = result.stay_of;
         if (stayElement.textContent == '') {
             stayElement.textContent = 'Ilimitado';
-        }
+        }else{
+            const stayElementURL = crearURL(result.stay_of);
+            stayElement.textContent = await Traductor(stayElementURL);
+        };
 
         const passValidElement = document.getElementById('pass_valid');
         const urlcustom = crearURL(result.pass_valid);
-
-
         passValidElement.textContent = await Traductor(urlcustom);
+
         console.log(passValidElement.textContent);
         const visaElement = document.getElementById('visa');
-        visaElement.textContent = result.visa;
+
+        const visaElementURL = crearURL(result.visa);
+        visaElement.textContent = await Traductor(visaElementURL);
     } catch (error) {
         console.error(error);
         // Mostrar un mensaje de error al usuario
@@ -837,7 +880,7 @@ async function buscarActividades(ciudad) {
     const options2 = {
         method: 'GET',
         headers: {
-            'x-rapidapi-key': '1409d00da2mshe42a0c552294395p135c55jsna2256c092484',
+            'x-rapidapi-key': '3206dfcb3cmshd6d714776f934eap111428jsn1641db5b4639',
             'x-rapidapi-host': 'real-time-tripadvisor-scraper-api.p.rapidapi.com'
         }
     };
@@ -853,7 +896,7 @@ async function buscarActividades(ciudad) {
             console.log(result2);
             // Crear un mapa de actividades por categoría
             actividadesPorCategoria = {};
-            result2.data.forEach(actividad => {
+            result2.data.slice(0,20).forEach(actividad => {
                 const categoria = agruparCategoria(actividad.category);
                 console.log(categoria);
                 if (!actividadesPorCategoria[categoria]) {
@@ -908,6 +951,8 @@ async function buscarActividades(ciudad) {
 
 }
 
+let cacheActividadesFiltradas = {};
+
 async function MostrarActividades(CategoríaEscogida) {
 
     // Obtener la sección donde se mostrarán las recomendaciones
@@ -916,21 +961,37 @@ async function MostrarActividades(CategoríaEscogida) {
     recomendacionesFlexbox.style.display = 'flex';
     recomendacionesFlexbox.style.flexWrap = 'wrap';
     recomendacionesFlexbox.style.justifyContent = 'space-around';
-    // Obtener las actividades filtradas según la categoría seleccionada
-    let actividadesFiltradas;
+    // Limpiar el contenedor de recomendaciones antes de agregar nuevos elementos
+    recomendacionesDiv.innerHTML = '';
+    let actividadesFiltradas={};
+    if (!cacheActividadesFiltradas[CategoríaEscogida]) {
+        // Obtener las actividades filtradas según la categoría seleccionada
+    
     if (CategoríaEscogida === 'all') {
         actividadesFiltradas = Object.values(actividadesPorCategoria).flat();
     } else {
         actividadesFiltradas = actividadesPorCategoria[CategoríaEscogida] || [];
     }
-    // Limpiar el contenedor de recomendaciones antes de agregar nuevos elementos
-    recomendacionesDiv.innerHTML = '';
+        cacheActividadesFiltradas[CategoríaEscogida] = actividadesFiltradas;
+    }else {
+        // Si están en caché, usar directamente
+        actividadesFiltradas = cacheActividadesFiltradas[CategoríaEscogida];
+    }
+    
     // Crear los elementos de la lista
-    actividadesFiltradas.forEach(actividad => {
+    actividadesFiltradas.forEach(async actividad => {
         const li = document.createElement('li');
         li.classList.add('recomendacion');
+        //obtener titulo traducido
+        
+        const titleurl = crearURL(actividad.title);
+        
+        const tituloactividad = await Traductor(titleurl);
+        console.log('titulo es', tituloactividad);
         // Obtener la descripcion truncada
         const descripcionTruncada = truncarTexto(actividad.description, 50);
+        const descripcionurl = crearURL(descripcionTruncada);
+        const descripcionEsp = await Traductor(descripcionurl);
         // Obtener la categoría agrupada
         const categoriaAgrupada = agruparCategoria(actividad.category);
         const categoria = agruparCategoria(actividad.category);
@@ -944,10 +1005,10 @@ async function MostrarActividades(CategoríaEscogida) {
             <div class="w3-display-container w3-margin-bottom">
               <img src="${actividad.image}" alt="${actividad.description}" style="width:100%">
               <div class="w3-container w3-white">
-                <h3>${actividad.title}</h3>
-                <h6 class="w3-opacity">${descripcionTruncada}</h6>
+                <h3>${tituloactividad}</h3>
+                <h6 class="w3-opacity">${descripcionEsp}</h6>
                 <p>${categoriaAgrupada}</p>
-                <p>${actividad.category}</p>
+                <!--<p>${actividad.category}</p>-->
                 <p>${actividad.duration}</p>
                 <button button class="btn btn-success w3-button w3-block w3-black w3-margin-bottom" onclick=" window.open('${actividad.url}','_blank')">Más Información</button>
                 
@@ -979,7 +1040,7 @@ async function Traductor(URL) {
     const options = {
         method: 'POST',
         headers: {
-            'x-rapidapi-key': '1409d00da2mshe42a0c552294395p135c55jsna2256c092484',
+            'x-rapidapi-key': '3206dfcb3cmshd6d714776f934eap111428jsn1641db5b4639',
             'x-rapidapi-host': 'free-google-translator.p.rapidapi.com',
             'Content-Type': 'application/json'
         },
@@ -1052,6 +1113,3 @@ function agruparCategoria(categoria) {
     }
 }
 //----------------------------------------------------------------------------------------
-
-
-
