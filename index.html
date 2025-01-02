@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>W3.CSS Template</title>
+  <title>Mi Web de Viajes</title>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Raleway", Arial, Helvetica, sans-serif
+    }
+  </style>
+</head>
+
+<body class="w3-light-grey">
+
+  <!-- Navigation Bar -->
+  <div class="w3-bar w3-white w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i>Eurotrip</a>
+    <a class="w3-bar-item w3-mobile">Te ayudamos a encontrar la información que necesitas</a>
+  </div>
+
+  <!-- Header -->
+  <header class="w3-display-container" style=" display: flex; flex-direction: column;">
+    <div class="container">
+      <img class="w3-image" style="min-width:1000px" width="1500" height="400">
+  
+      <div class="w3-display-left w3-padding w3-col l6 m8 contenedor-buscador">
+        <div class="w3-container w3-red">
+          <h2><i class="fa fa-search w3-margin-right"></i>Buscador</h2>
+        </div>
+        <div class="w3-container w3-white w3-padding-16">
+          <div class="w3-row-padding" style="margin:0 -16px;">
+            <div class="w3-half w3-margin-bottom">
+              <label><i class="fa fa-map-marker"></i> País de Origen:</label>
+              <input class="w3-input w3-border" type="text" placeholder="Desde" id="origen" name="origen" required>
+            </div>
+            <div class="w3-half">
+              <label><i class="fa fa-map-marker"></i> País de Destino:</label>
+              <input class="w3-input w3-border" type="text" placeholder="Hacia" id="destino" name="destino" required>
+            </div>
+          </div>
+          <div class="w3-margin-bottom">
+            <button onclick="buscarRequisitos()" class="w3-button w3-dark-grey"><i
+                class="fa fa-search w3-margin-right"></i>Buscar</button>
+          </div>
+          <div class="requisito-viaje w3-margin-bottom">
+            <button id="myBtn" onclick="mostrarRequisitos('menuLegales')" class="w3-button"><i class="fa fa-inbox w3-margin-right"></i>Requisitos Legales:<i class="fa fa-caret-down w3-margin-right"></i></button>
+            <div id="menuLegales" class="w3-hide w3-animate-left"> 
+              <div class="w3-bar-item w3-border-bottom test w3-hover-light-grey requisito-viaje" id="firstTab">
+                <div class="w3-container">
+                  <p class="w3-bar-item w3-opacity w3-large">La moneda utilizada en destino: </p>
+                  <span id="moneda"></span>
+                </div>
+              </div>
+              <div class="w3-bar-item w3-border-bottom test w3-hover-light-grey requisito-viaje">
+                <div class="w3-container">
+                  <p class="w3-bar-item w3-opacity w3-large">El tiempo de estadia permitido: </p>
+                  <span id="stay_of"></span>
+                </div>
+              </div>
+              <div class="w3-bar-item w3-border-bottom test w3-hover-light-grey requisito-viaje">
+                <div class="w3-container">
+                  <p class="w3-bar-item w3-opacity w3-large">Vigencia de Pasaporte: </p>
+                  <span id="pass_valid"></span>
+                </div>
+              </div>
+              <div class="w3-bar-item w3-border-bottom test w3-hover-light-grey requisito-viaje">
+                <div class="w3-container">
+                  <p class="w3-bar-item w3-opacity w3-large">Requerimiento de Visado: </p>
+                  <span id="visa"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="requisito-viaje">
+            <button id="myBtn" onclick="mostrarRequisitos('menuMedicos')" class="w3-button"><i class="fa fa-inbox w3-margin-right"></i>Requisitos Medicos:<i class="fa fa-caret-down w3-margin-right"></i></button>
+            <div id="menuMedicos" class="w3-hide w3-animate-left"> 
+              <div class="w3-bar-item w3-border-bottom test w3-hover-light-grey requisito-viaje" id="firstTab">
+                <div class="w3-container">
+                  <p class="w3-bar-item w3-opacity w3-large">Vacunas Requeridas: </p>
+                  <span id="vacunas"></span>
+                </div>
+              </div>
+              <div class="w3-bar-item w3-border-bottom test w3-hover-light-grey requisito-viaje">
+                <div class="w3-container">
+                  <p class="w3-bar-item w3-opacity w3-large">Consejos de Salud: </p>
+                  <span id="consejos"></span>
+                </div>
+              </div>
+              
+            </div>
+            <div class="w3-bar-item w3-left w3-border-bottom test w3-hover-light-grey requisito-viaje">
+              <button id="botonReqMedicos" onclick="window.open(this.href, '_blank')" class="w3-button w3-red w3-border-bottom w3-margin-bottom w3-margin-top"><i
+                  class="fa w3-margin-right"></i>Mas Información</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  
+
+
+  <!-- Page content -->
+  <div class="w3-content" style="max-width:1532px;">
+  
+
+    <div class="w3-container w3-margin-top" id="rooms">
+      <h3>Buscador de Actividades</h3>
+      <p>Prueba nuestro buscador y encuentra lugares interesantes qué visitar: </p>
+    </div>
+
+    <div class="w3-row-padding" id="resultadosBusqueda">
+      <div class="w3-col m3">
+        <label><i class="fa fa-calendar-o"></i>Ciudad: </label>
+        <select class="w3-select" id="ciudad">
+          <option value="all">Seleccionar Ciudad</option>
+        </select>
+      </div>
+      <div class="w3-col m2">
+        <label><i class="fa fa-search"></i>Actividades: </label>
+        <button id= "botonBuscar" class="w3-button w3-block w3-black" >Buscar</button>
+      </div>
+      <div class="w3-col m3">
+        <label><i class="fa fa-calendar-o"></i>Categorias: </label>
+        <select class="w3-select" id="filtroCategoria">
+          <option value="all">Todas las categorías</option>
+        </select>
+        
+      </div>
+      <div class="w3-col m2">
+        <label><i class="fa fa-search"></i>Filtro: </label>
+        <button id= "botonFiltrar" class="w3-button w3-block w3-black" >Aplicar</button>
+      </div>
+    </div>
+
+    <div class="w3-row-padding w3-padding-16" id="recomendaciones">
+      <!-- Aquí aparecerán las recomendaciones-->
+    </div>
+
+  </div>
+
+
+  <script src="script.js">
+  </script>
+
+  <script>
+function mostrarRequisitos(menuElegido) {
+  var menu = document.getElementById(menuElegido);
+  if (!menu) {
+    console.error(`No se encontró el menú con el ID: ${menuElegido}`);
+    return;
+  }
+  menu.classList.toggle("w3-hide");
+
+  var header = document.querySelector("header");
+  var content = document.querySelector(".w3-content");
+  var menuHeight = menu.offsetHeight;
+
+  if (menu.classList.contains("w3-hide")) {
+    // Reset padding-top to 0 when menu is closed
+    content.style.paddingTop = 0;
+    // Reset minimum height of the header
+    header.style.minHeight = null;
+  } else {
+    header.style.minHeight = header.offsetHeight + menuHeight + 'px';
+    content.style.paddingTop = menuHeight;
+  }
+}
+    
+   
+  </script>
+
+</body>
+
+</html>

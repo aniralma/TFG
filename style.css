@@ -1,0 +1,76 @@
+.w3-content {
+    padding-top: 0;
+  }
+  
+  #rooms {
+   /* position: fixed;*/
+    top: some-position; /* Adjust the top position as needed */
+    width: 100%;
+    margin-top: 50px;
+  }
+  
+.requisito-viaje {
+    display: block; 
+    width: 100%; 
+}
+
+.contenedor-buscador {
+    position: relative;
+}
+
+header {
+     transition: min-height 0.3s ease-in-out; /* Agrega una transición suave */
+  }
+
+.container {
+    position: relative;
+    
+    background-image: url(fondo1.jpg); 
+    background-size:auto;
+    
+    background-position: center;
+    padding: 20px; 
+  }
+
+  #menuRequisitos {
+    position: absolute; 
+    top: 100%; 
+    left: 0;
+    width: 100%; 
+    background-color: #fff;
+}
+
+.requisito-viaje {
+    display: block; 
+    width: 100%; 
+    position: relative; /* Esto es crucial */ 
+}
+
+.contenedor-buscador {
+    flex: 1; /* Permite que el contenedor del buscador ocupe el espacio restante */
+  }
+
+
+  .recomendacion {
+    flex: 1 1 300px; /* Asignamos un ancho mínimo y hacemos que los elementos crezcan proporcionalmente */
+    max-width: 300px; /* Limitamos el ancho máximo para evitar que se vuelvan demasiado grandes */
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Agregamos un máximo de líneas para la descripción */
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* ... otras propiedades ... */
+    display: -webkit-box; /* Para WebKit */
+    display: -ms-flexbox; /* Para Internet Explorer */
+    display: flex; 
+    -webkit-line-clamp: 3; /* Para WebKit */
+    -ms-line-clamp: 3; /* Para Internet Explorer */
+    line-clamp: 3; /* Propiedad estándar */
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
