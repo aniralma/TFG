@@ -776,7 +776,7 @@ async function buscarRequisitos() {
     const options = {
         method: 'POST',
         headers: {
-            'x-rapidapi-key': '3206dfcb3cmshd6d714776f934eap111428jsn1641db5b4639',
+            'x-rapidapi-key': 'b61744da85msh6d72c9c781e9ce6p1b4baajsnd22c0466fe11',
             'x-rapidapi-host': 'visa-requirement.p.rapidapi.com',
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -880,7 +880,7 @@ async function buscarActividades(ciudad) {
     const options2 = {
         method: 'GET',
         headers: {
-            'x-rapidapi-key': '3206dfcb3cmshd6d714776f934eap111428jsn1641db5b4639',
+            'x-rapidapi-key': 'b61744da85msh6d72c9c781e9ce6p1b4baajsnd22c0466fe11',
             'x-rapidapi-host': 'real-time-tripadvisor-scraper-api.p.rapidapi.com'
         }
     };
@@ -1040,7 +1040,7 @@ async function Traductor(URL) {
     const options = {
         method: 'POST',
         headers: {
-            'x-rapidapi-key': '3206dfcb3cmshd6d714776f934eap111428jsn1641db5b4639',
+            'x-rapidapi-key': 'b61744da85msh6d72c9c781e9ce6p1b4baajsnd22c0466fe11',
             'x-rapidapi-host': 'free-google-translator.p.rapidapi.com',
             'Content-Type': 'application/json'
         },
