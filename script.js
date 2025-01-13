@@ -1,3 +1,5 @@
+/* TFG Aniralma */
+
 const paisesUE = {
 
 
@@ -286,7 +288,7 @@ const diccionarioCiudades = {
     "Tuzla": "Tuzla",
     "Tbilisi": "Tbilisi",
     "Batumi": "Batumi",
-    "Tiflis":"Tiflis",
+    "Tiflis": "Tiflis",
     "Kutaisi": "Kutaisi",
     "Mtskheta": "Mtskheta",
     "Reykjavik": "Reykjavik",
@@ -706,8 +708,8 @@ const requisitosMedicos = [
         "health_advice": "Seguro de viaje recomendado.",
         "foreign_ministry_url": "https://www.gov.uk",
         "last_updated": "2024-12-28"
-      },
-      {
+    },
+    {
         "country": "Países Bajos",
         "visa_requirement": "Los ciudadanos de la UE pueden ingresar sin visado. Para otros, se requiere visado.",
         "vaccine_requirement": "No se requieren vacunas obligatorias.",
@@ -776,7 +778,7 @@ async function buscarRequisitos() {
     const options = {
         method: 'POST',
         headers: {
-            'x-rapidapi-key': 'b61744da85msh6d72c9c781e9ce6p1b4baajsnd22c0466fe11',
+            'x-rapidapi-key': '3206dfcb3cmshd6d714776f934eap111428jsn1641db5b4639',
             'x-rapidapi-host': 'visa-requirement.p.rapidapi.com',
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -800,7 +802,7 @@ async function buscarRequisitos() {
         stayElement.textContent = result.stay_of;
         if (stayElement.textContent == '') {
             stayElement.textContent = 'Ilimitado';
-        }else{
+        } else {
             const stayElementURL = crearURL(result.stay_of);
             stayElement.textContent = await Traductor(stayElementURL);
         };
@@ -822,7 +824,6 @@ async function buscarRequisitos() {
     }
     //requisistos de salubridad
     mostrarRequisitosMedicos(destino);
-
 
     //trip advisor
     // Obtener el botón de búsqueda y el elemento select de la ciudad
@@ -880,7 +881,7 @@ async function buscarActividades(ciudad) {
     const options2 = {
         method: 'GET',
         headers: {
-            'x-rapidapi-key': 'b61744da85msh6d72c9c781e9ce6p1b4baajsnd22c0466fe11',
+            'x-rapidapi-key': '1409d00da2mshe42a0c552294395p135c55jsna2256c092484',
             'x-rapidapi-host': 'real-time-tripadvisor-scraper-api.p.rapidapi.com'
         }
     };
@@ -890,13 +891,13 @@ async function buscarActividades(ciudad) {
     try {
         const response2 = await fetch(url2, options2);
         const result2 = await response2.json();
-
+        console.log(result2);
         if (result2.data && Array.isArray(result2.data)) {
             console.log('es Array');
             console.log(result2);
             // Crear un mapa de actividades por categoría
             actividadesPorCategoria = {};
-            result2.data.slice(0,20).forEach(actividad => {
+            result2.data.slice(0, 20).forEach(actividad => {
                 const categoria = agruparCategoria(actividad.category);
                 console.log(categoria);
                 if (!actividadesPorCategoria[categoria]) {
@@ -963,29 +964,29 @@ async function MostrarActividades(CategoríaEscogida) {
     recomendacionesFlexbox.style.justifyContent = 'space-around';
     // Limpiar el contenedor de recomendaciones antes de agregar nuevos elementos
     recomendacionesDiv.innerHTML = '';
-    let actividadesFiltradas={};
+    let actividadesFiltradas = {};
     if (!cacheActividadesFiltradas[CategoríaEscogida]) {
         // Obtener las actividades filtradas según la categoría seleccionada
-    
-    if (CategoríaEscogida === 'all') {
-        actividadesFiltradas = Object.values(actividadesPorCategoria).flat();
-    } else {
-        actividadesFiltradas = actividadesPorCategoria[CategoríaEscogida] || [];
-    }
+
+        if (CategoríaEscogida === 'all') {
+            actividadesFiltradas = Object.values(actividadesPorCategoria).flat();
+        } else {
+            actividadesFiltradas = actividadesPorCategoria[CategoríaEscogida] || [];
+        }
         cacheActividadesFiltradas[CategoríaEscogida] = actividadesFiltradas;
-    }else {
+    } else {
         // Si están en caché, usar directamente
         actividadesFiltradas = cacheActividadesFiltradas[CategoríaEscogida];
     }
-    
+
     // Crear los elementos de la lista
     actividadesFiltradas.forEach(async actividad => {
         const li = document.createElement('li');
         li.classList.add('recomendacion');
         //obtener titulo traducido
-        
+
         const titleurl = crearURL(actividad.title);
-        
+
         const tituloactividad = await Traductor(titleurl);
         console.log('titulo es', tituloactividad);
         // Obtener la descripcion truncada
@@ -1040,7 +1041,7 @@ async function Traductor(URL) {
     const options = {
         method: 'POST',
         headers: {
-            'x-rapidapi-key': 'b61744da85msh6d72c9c781e9ce6p1b4baajsnd22c0466fe11',
+            'x-rapidapi-key': '3206dfcb3cmshd6d714776f934eap111428jsn1641db5b4639',
             'x-rapidapi-host': 'free-google-translator.p.rapidapi.com',
             'Content-Type': 'application/json'
         },
